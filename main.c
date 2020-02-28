@@ -6,6 +6,7 @@
 int main()
 {
     int A[N][M];
+    srand(time(NULL));
     {
         for (int i = 0; i < N; i++) 
         {
