@@ -3,69 +3,53 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
-#define N 9
-#define M 9
-void prop1(int A[N][M])
+#include <conio.h>
+#define for_i for(int i = 0; i < r; i++)
+void swap(int* a, int* b)
 {
-	srand(time(0));
-	for (int i = 0; i < N; ++i)
-		for (int j = 0; j < M; ++j)
-		{
-			A[i][j] = rand() % 2 ? 0 : rand() % 2;
-			A[i][0] = 1;
-			A[i][M - 1] = 1;
-			A[0][j] = 1;
-			A[N - 1][j] = 1;
-		}
-}
-void prop2(int A[N][M])
-{
-	for (int i = 0; i < N; ++i)
-	{
-		for (int j = 0; j < M; ++j)
-			printf("%d", A[i][j]);
-		printf("\n");
-	}
+	int z = *a;
+	*a = *b;
+	*b = z;
 
 }
-void prop3(int A[N][M], int x, int i, int j)
+void sort(int r, int* v)
 {
-
-
-	if (i < N && j < M)
+	setlocale(LC_ALL, "Rus");
+	int q = 0;
+	for (int i = 0; i < r; i++)
 	{
-		if (A[i][j] == 0)
+		for (int j = 1; j < (r - i); j++)
 		{
-			A[i][j] = x;
-			prop3(A, x, i, j + 1);
-			prop3(A, x, i, j - 1);
-			prop3(A, x, i - 1, j);
-			prop3(A, x, i + 1, j);
+
+			if (v[j] < v[j - 1])
+			{
+				swap(&v[j], &v[j - 1]);
+			}
+			q++;
 		}
-		else if (A[i][j] == 1)
-		{
-			return;
-		}
+
 	}
+	printf("Мы сравнили %d раз",q);
 }
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-	int A[N][M];
-	int x;
-	int i;
-	int j;
-	printf("Создан массив:\n");
-	prop1(A);
-	prop2(A);
-	printf("Введите число заливки:");
-	scanf("%d", &x);
-	printf("Введите первую координату для массива:");
-	scanf("%d", &i);
-	printf("Введите вторую координату для массива:");
-	scanf("%d", &j);
-	printf("Массив:\n");
-	prop3(A, x, i, j);
-	prop2(A);
-	getchar();
+	int r;
+	printf("Введите размер массива - ");
+	scanf("%d", &r);
+	int* v = (int*)calloc(r, sizeof(int));
+	printf("Массив - ");
+	for_i
+	{
+	v[i] = r - i;
+	printf("%d ", v[i]);
+	}
+	printf("\n");
+	sort(r, v);
+	printf("Результат сортировки - ");
+	for_i
+	{
+	printf("%d ", v[i]);
+	}
+	free(v);
 }
