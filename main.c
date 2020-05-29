@@ -237,9 +237,8 @@ void colormap_rgbf(float value, float min, float max, float* r, float* g, float*
     *b = colormap_interp(colormap[point1][2], colormap[point2][2], pos);
 }
 
-void print_array2d_index(cell** arr, int n, const char* prefix, const char* folder_name, int count)
+void print_array2d_index(cell** arr, int n, int m, const char* prefix, const char* folder_name, int count)
 {
-    int m = 20;
     int x, y, i, j, k;
     bitmap_t fruit;
     fruit.width = n * m;
@@ -302,6 +301,7 @@ int main()
 {
     srand(time(NULL));
     int n;
+    int m;
     char* folder_name[100];
     system("cls");  // очищаем экран
     printf("Welcome to the ShellSort Programm!\n");
@@ -325,6 +325,15 @@ int main()
             printf("Enter an integer >");
         }
         printf("Your choice is = %d\n", n);
+        printf("Choose your number for your pixel size( Recomended 20 )\n");
+        printf(">");
+        while (!scanf("%d", &m))
+        {
+            char buf[100];
+            scanf("%s", buf);
+            printf("Enter an integer >");
+        }
+        printf("Your choice is = %d\n", m);
         printf("Enter your folder name( On English and without whitespace )\n");
         printf(">");
         scanf("%s",&folder_name);
@@ -365,14 +374,14 @@ int main()
 
     char* prefix = "fname";
 
-    print_array2d_index(arr, n, prefix, folder_name, 0);
+    print_array2d_index(arr, n, m, prefix, folder_name, 0);
     for (int z = 0; z < n; z++)
     {
         for (int k = 0; k < n; k++)
         {
             ShellSort(arr, n, k, stop);            
         }
-    print_array2d_index(arr, n, prefix, folder_name, z + 1);
+    print_array2d_index(arr, n, m, prefix, folder_name, z + 1);
     }
     printf("\n");
     printf("Well done!");
